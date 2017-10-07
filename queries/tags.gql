@@ -1,14 +1,18 @@
-query prs($owner: String!, $name: String!) { 
+query prs($owner: String!, $name: String!, $after: String) { 
   repository(owner: $owner, name: $name) {
-   refs(first: 10, refPrefix: "refs/tags/") {
-      nodes {
-        name
-        target {
-          ... on Commit {
-            committedDate
-          }
+   refs(first: 30, refPrefix: "refs/tags/", after: $after) {
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      name
+      target {
+        ... on Commit {
+          committedDate
         }
       }
-  	}     
+    }
+   }
   }
 }

@@ -1,0 +1,15 @@
+query repositories($organization: String!, $after: String) {
+
+  organization(login: $organization) {
+    repositories(first: 50, after: $after) {
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
+      nodes {
+        name
+      }
+    }
+  }
+
+}
