@@ -12,8 +12,11 @@ query prs($owner: String!, $name: String!, $after: String) {
       }
       nodes {
         url
+        number
         title
         mergedAt
+        # maybe we should just get the body on a second pass for those prs that belong to the tag
+        bodyHTML
       }
     }
   }

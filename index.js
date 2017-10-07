@@ -1,7 +1,6 @@
 import fs from 'fs'
 import { createClient } from './graphql'
-import { processPRs } from './core'
-import reporter from './reporter'
+
 import _vorpal from 'vorpal'
 import gql from 'graphql-tag'
 import commands from './src/cli/commands/all'

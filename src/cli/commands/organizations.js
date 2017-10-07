@@ -1,5 +1,7 @@
+import fs from 'fs'
 import moment from 'moment'
 import state from './state'
+import reporter from '../../reporter'
 
 export default (vorpal, client) => {
   vorpal
@@ -11,7 +13,11 @@ export default (vorpal, client) => {
 
       await fetchPRs(cli, client, state)
 
-      console.log('State', state)
+      const report = reporter(state)
+      const fileName = saveToFile(state, report)
+      cli.log(`Generated file ${fileName}`)
+
+      // console.log('State', state)
     }))
 }
 
@@ -85,6 +91,12 @@ const fetchPRs = async (cli, client, state) => {
       pr.mergedAt.isSameOrBefore(state.tag.target.committedDate)
       && (!state.previousTag || pr.mergedAt.isAfter(state.previousTag.target.committedDate, 'minute'))
     )
+}
+
+const saveToFile = (state, report) => {
+  const fileName = `${__dirname}/../../../changelog-${state.repository}-${state.tag.name}.html`
+  fs.writeFileSync(fileName, report)
+  return fileName
 }
 
 // generic prompt

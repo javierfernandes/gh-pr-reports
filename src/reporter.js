@@ -1,6 +1,6 @@
 
-export default function generate(prs) {
-  console.log(`
+export default function generate(state) {
+  let report = `
   <!DOCTYPE html>
   <html lang="en">
     <head>
@@ -30,29 +30,29 @@ export default function generate(prs) {
       </style>
     </head>
     <body style="width: 80%; margin: auto;">
-      <h1>Release 1.0.2</h1>
+      <h1>${state.repository} ${state.tag.name}</h1>
 
       <h2>Index</h2>
       <ul>
-      ${prs.data.repository.pullRequests.nodes.map(pr => {
+      ${state.prs.map(pr => {
         return `<li>[${pr.number}]&nbsp;<a href="#${pr.number}">${pr.title}</a></li>`
       }).join('\n')} 
       </ul>
 
       <h2>Changes</h2>
-  `)
-  prs.data.repository.pullRequests.nodes.forEach(pr => {
+  `
+  state.prs.forEach(pr => {
     if (pr.bodyHTML) {
-      console.log(`
+      report += `
         <a name="${pr.number}" />
         <h3><a href="${pr.url}">[${pr.number}]</a>&nbsp;${pr.title}</h3>
           ${pr.bodyHTML}
         <hr/>
-      `)
+      `
     }
   })
 
-  console.log(`
+  report += `
       <!-- Optional JavaScript -->
       <!-- jQuery first, then Popper.js, then Bootstrap JS -->
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -60,5 +60,6 @@ export default function generate(prs) {
       <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
     </body>
   </html>
-  `)
+  `
+  return report
 }
