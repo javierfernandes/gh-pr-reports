@@ -1,0 +1,14 @@
+query prs($owner: String!, $name: String!) { 
+  repository(owner: $owner, name: $name) {
+   refs(first: 10, refPrefix: "refs/tags/") {
+      nodes {
+        name
+        target {
+          ... on Commit {
+            committedDate
+          }
+        }
+      }
+  	}     
+  }
+}

@@ -1,0 +1,207 @@
+yarn start v1.0.2
+$ babel-node index.js
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <!-- Required meta tags -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+      <!-- Bootstrap CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+      <style>
+        h1 { padding-bottom: 1em; border-bottom: 1px solid rgb(220, 220, 220); }
+        h3 { padding-top: 0.5em; padding-bottom: 0.2em; }
+        img { 
+          max-width: 65%!important;
+          border: 1px solid rgba(1,1,1,0.2);
+          border-radius: 4px;
+          box-shadow: 2px 2px 2px #d2d2d3;
+        }
+        pre {
+          padding-top: 1em;
+          padding-bottom: 1em;
+          padding-left: 0.5em;
+          color: white;
+          background-color: #212529;
+          border-radius: 4px;
+        }
+      </style>
+    </head>
+    <body style="width: 80%; margin: auto;">
+      <h1>Release 1.0.2</h1>
+
+      <h2>Index</h2>
+      <ul>
+      <li>[89]&nbsp;<a href="#89">Adding switch to toggle minimap on/off. Resets scrolling but well.. a…</a></li>
+<li>[90]&nbsp;<a href="#90">Optimizing treeview rendering</a></li>
+<li>[91]&nbsp;<a href="#91">Shortcuts + Edit on insert</a></li>
+<li>[93]&nbsp;<a href="#93">Better shortcut navigation</a></li>
+<li>[95]&nbsp;<a href="#95">Removing changes notifications for release</a></li>
+<li>[96]&nbsp;<a href="#96">Improving look and feel for shortcuts info</a></li>
+<li>[98]&nbsp;<a href="#98">- Adding break action for named non-root markers</a></li>
+<li>[99]&nbsp;<a href="#99">Adding logic to accept `\n` inside a line.</a></li>
+<li>[104]&nbsp;<a href="#104">Fixing shortcuts not working in production. Webpack uglify was screwi…</a></li>
+<li>[102]&nbsp;<a href="#102">Drag and Drop: initial support</a></li>
+<li>[106]&nbsp;<a href="#106">Minimize panes</a></li>
+<li>[107]&nbsp;<a href="#107">Text editor suppot inline actor and line</a></li>
+<li>[109]&nbsp;<a href="#109">[Delivers #151685341] Autocomplete for object refs</a></li>
+<li>[110]&nbsp;<a href="#110">[Deliver #151256078] Making the treenode use ObjectRefValue editor for jump target. Eventu…</a></li>
+<li>[113]&nbsp;<a href="#113">Storybook</a></li>
+<li>[114]&nbsp;<a href="#114">adding the copy project functionality.</a></li>
+<li>[111]&nbsp;<a href="#111">Text editor support multiline / soft break line in a block</a></li>
+<li>[115]&nbsp;<a href="#115">Sound player</a></li>
+<li>[118]&nbsp;<a href="#118">[Graph] add template "questions"</a></li>
+<li>[117]&nbsp;<a href="#117">Adding hover menu to lines</a></li> 
+      </ul>
+
+      <h2>Changes</h2>
+  
+
+        <a name="89" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/89">[89]</a>&nbsp;Adding switch to toggle minimap on/off. Resets scrolling but well.. a…</h3>
+          <p>…t least it allows you to remove the minimap in case it blocks editing</p>
+<p>Looks like this</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31014512-99cd240e-a4f1-11e7-9a2d-101155e5746f.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31014512-99cd240e-a4f1-11e7-9a2d-101155e5746f.gif" alt="toggleminimap" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="91" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/91">[91]</a>&nbsp;Shortcuts + Edit on insert</h3>
+          <p>Adds some keyboard shortcuts to the tree. Also a help modal to show the list of shortcuts (pretty rough but well.. it does the job for the moment)</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31037934-257fb090-a54a-11e7-9f21-73b89e2d79bb.png" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31037934-257fb090-a54a-11e7-9f21-73b89e2d79bb.png" alt="image" style="max-width:100%;"></a></p>
+<p>This PR also includes a change so that when you insert a node if it is editable then it autoselect it and enters "edit" mode</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31037979-7882644a-a54a-11e7-8116-bf62d0be64e9.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31037979-7882644a-a54a-11e7-8116-bf62d0be64e9.gif" alt="editmodeoninsert" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="93" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/93">[93]</a>&nbsp;Better shortcut navigation</h3>
+          <p><a href="https://user-images.githubusercontent.com/4428120/31084196-2046bb60-a76a-11e7-8a1e-3af0e18da3eb.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31084196-2046bb60-a76a-11e7-8a1e-3af0e18da3eb.gif" alt="keyboardnav" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="96" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/96">[96]</a>&nbsp;Improving look and feel for shortcuts info</h3>
+          <p>Now it looks</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31085280-11385310-a76d-11e7-9b58-cd0dd19aad3b.png" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31085280-11385310-a76d-11e7-9b58-cd0dd19aad3b.png" alt="image" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="98" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/98">[98]</a>&nbsp;- Adding break action for named non-root markers</h3>
+          <ul>
+<li>disabling shortcuts while editing (all but ESC)</li>
+</ul>
+<p><a href="https://user-images.githubusercontent.com/4428120/31093757-2672573c-a789-11e7-8d9b-2f5a2dae615d.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31093757-2672573c-a789-11e7-8d9b-2f5a2dae615d.gif" alt="breakscene" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="99" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/99">[99]</a>&nbsp;Adding logic to accept `\n` inside a line.</h3>
+          <p>Converting it to several different lines one per each \n.</p>
+<p>Another (more advanced) option would be to accept \n inside lines, but we can do that later.</p>
+<p>With these we cover the functionality in the prototype and avoid data loss</p>
+        <hr/>
+      
+
+        <a name="104" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/104">[104]</a>&nbsp;Fixing shortcuts not working in production. Webpack uglify was screwi…</h3>
+          <p>…ng combokeys library code</p>
+        <hr/>
+      
+
+        <a name="102" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/102">[102]</a>&nbsp;Drag and Drop: initial support</h3>
+          <p>All nodes can be dragged "after" another node.<br>
+Well, all but "choice" nodes, which should only live under a choices.</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31127854-69d55932-a826-11e7-9022-a2825a007190.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31127854-69d55932-a826-11e7-9022-a2825a007190.gif" alt="dnd" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="106" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/106">[106]</a>&nbsp;Minimize panes</h3>
+          <p>Looks like this</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31148621-a5c0c3c2-a863-11e7-8e54-e3996a6599d0.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31148621-a5c0c3c2-a863-11e7-8e54-e3996a6599d0.gif" alt="collapseviews" style="max-width:100%;"></a></p>
+<p>Also styled resizers !</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31150117-ee5693f0-a868-11e7-85da-5a7f4a467460.png" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31150117-ee5693f0-a868-11e7-85da-5a7f4a467460.png" alt="image" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="109" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/109">[109]</a>&nbsp;[Delivers #151685341] Autocomplete for object refs</h3>
+          <p>Looks like this</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31184101-d8ce95fa-a8fe-11e7-8680-f65cb3980a22.png" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31184101-d8ce95fa-a8fe-11e7-8680-f65cb3980a22.png" alt="image" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="110" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/110">[110]</a>&nbsp;[Deliver #151256078] Making the treenode use ObjectRefValue editor for jump target. Eventu…</h3>
+          <p>…ally we should reuse all editor from the tree</p>
+<p>Looks like this</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31194518-c7198dbe-a91d-11e7-9404-76580a55b55b.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31194518-c7198dbe-a91d-11e7-9404-76580a55b55b.gif" alt="autocompletejump" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="113" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/113">[113]</a>&nbsp;Storybook</h3>
+          <p>Start it with</p>
+<pre><code>yarn storybook
+</code></pre>
+<p>Looks like this</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31226616-2d278eaa-a9ad-11e7-825c-83cb677ac2d9.png" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31226616-2d278eaa-a9ad-11e7-825c-83cb677ac2d9.png" alt="image" style="max-width:100%;"></a></p>
+<p>Stories are in <code>/stories</code> folder<br>
+I've created a provider to mock some providers, etc.</p>
+<p>A treenode example :)</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31227260-9753753a-a9af-11e7-873c-f9d33919e8df.png" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31227260-9753753a-a9af-11e7-873c-f9d33919e8df.png" alt="image" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="114" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/114">[114]</a>&nbsp;adding the copy project functionality.</h3>
+          <p>TODO: reuse create project / copy project modals.</p>
+        <hr/>
+      
+
+        <a name="115" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/115">[115]</a>&nbsp;Sound player</h3>
+          <p>Adding new soundplayer library with a custom component on top.<br>
+Checkout the storybook for the customization process we did.</p>
+<p>Now it looks like this.</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31277206-38454164-aa76-11e7-8425-a30f415be1e9.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31277206-38454164-aa76-11e7-8425-a30f415be1e9.gif" alt="playbackpopup" style="max-width:100%;"></a></p>
+<p>And it is currently being used in the properties view</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31277216-42b1ecec-aa76-11e7-9571-0d396fc3beec.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31277216-42b1ecec-aa76-11e7-9571-0d396fc3beec.gif" alt="playbackpopupinprops" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="118" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/118">[118]</a>&nbsp;[Graph] add template "questions"</h3>
+          <p>Adds a new concept of "templates" with common patterns.<br>
+The first one is a "question group" with choices + 2 choice + clip + timer</p>
+<p>Here is how it works</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31296890-5878b59e-aaba-11e7-849f-0ce4d8f9832a.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31296890-5878b59e-aaba-11e7-849f-0ce4d8f9832a.gif" alt="templates-addquestion" style="max-width:100%;"></a></p>
+<p>Also adding icons to edit and delete menu and reorganizing the items with dividers</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31297076-fdeb2980-aaba-11e7-8ecf-087f7ee3ea0c.png" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31297076-fdeb2980-aaba-11e7-8ecf-087f7ee3ea0c.png" alt="image" style="max-width:100%;"></a></p>
+        <hr/>
+      
+
+        <a name="117" />
+        <h3><a href="https://github.com/BrunerHouse/beanie-frontend/pull/117">[117]</a>&nbsp;Adding hover menu to lines</h3>
+          <p>Only 1 action to delete the line with a popconfirm</p>
+<p>Looks like this</p>
+<p><a href="https://user-images.githubusercontent.com/4428120/31277544-d7a3de18-aa77-11e7-9f4b-4a4707ef206f.gif" target="_blank"><img src="https://user-images.githubusercontent.com/4428120/31277544-d7a3de18-aa77-11e7-9f4b-4a4707ef206f.gif" alt="deletehovermenuonlines" style="max-width:100%;"></a></p>
+<p>Uses the same delete line as the context menu</p>
+<p>Probably there is a better way to do the positioning of the context menu in terms of CSS.</p>
+        <hr/>
+      
+
+      <!-- Optional JavaScript -->
+      <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+    </body>
+  </html>
+  
+Done in 2.88s.
