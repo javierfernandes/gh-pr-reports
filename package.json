@@ -5,6 +5,7 @@
   "license": "MIT",
   "scripts": {
     "start": "babel-node index.js",
+    "start-oauth-server": "babel-node oauth.js",
     "test": "export NODE_PATH=./ && mocha --compilers js:babel-register --recursive tests"
   },
   "dependencies": {
