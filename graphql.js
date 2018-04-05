@@ -24,10 +24,15 @@ export const createClient = token => {
 class Api {
   constructor(client) {
     this.client = client
+    this.queriesCache = {}
   }
   gql(fileName) {
-    return gql(fs.readFileSync(`${__dirname}/queries/${fileName}`).toString())
+    if (!this.queriesCache[fileName]) {
+      this.queriesCache[fileName] = gql(fs.readFileSync(`${__dirname}/queries/${fileName}`).toString())
+    }
+    return this.queriesCache[fileName]
   }
+  // paginated query
   queryAll(queryFileName, extractor, variables) {
     const query = this.gql(queryFileName)
     return this.queryPage(query, extractor, undefined, variables, [])
@@ -37,7 +42,7 @@ class Api {
       query,
       variables: {
         ...variables,
-        // ...after && { after }
+        ...after && { after }
       }
     })
 
@@ -46,5 +51,13 @@ class Api {
     return search.pageInfo.hasNextPage ?
       this.queryPage(query, extractor, search.pageInfo.endCursor, variables, elements)
       : elements
+  }
+  // simple query
+  async query(queryFileName, extractor, variables) {
+    const result = await this.client.query({
+      query: this.gql(queryFileName),
+      variables
+    })
+    return extractor(result.data)
   }
 }

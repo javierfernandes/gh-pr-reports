@@ -13,6 +13,8 @@ export default (vorpal, client) => {
 
       await fetchPRs(cli, client, state)
 
+      await fetchPRBodies(cli, client, state)
+
       const report = reporter(state)
       const fileName = saveToFile(state, report)
       cli.log(`Generated file ${fileName}`)
@@ -78,10 +80,13 @@ const previousTagTo = (tag, tags) => {
 }
 
 const fetchPRs = async (cli, client, state) => {
-  const prs = await client.queryAll('prs.gql', data => data.repository.pullRequests, {
+  const variables = {
     owner: state.organization,
     name: state.repository
-  })
+  }
+  console.log('Fetching PRS', variables)
+  const prs = await client.queryAll('prs.gql', data => data.repository.pullRequests, variables)
+  console.log(`Got ${prs.length} PRs`)
   state.prs = prs
     .map(pr => ({
       ...pr,
@@ -91,10 +96,24 @@ const fetchPRs = async (cli, client, state) => {
       pr.mergedAt.isSameOrBefore(state.tag.target.committedDate)
       && (!state.previousTag || pr.mergedAt.isAfter(state.previousTag.target.committedDate, 'minute'))
     )
+  console.log(`After filtering we got ${state.prs.length} PRs`)
+}
+
+const fetchPRBodies = async (cli, client, state) => {
+  state.prs = await Promise.all(state.prs.map(pr => {
+    const variables = {
+      owner: state.organization,
+      name: state.repository,
+      number: pr.number
+    }
+    console.log(`Querying PR #${pr.number}`)
+    return client.query('pr.gql', data => data.repository.pullRequest, variables)
+  }))
 }
 
 const saveToFile = (state, report) => {
   const fileName = `${__dirname}/../../../changelog-${state.repository}-${state.tag.name}.html`
+  console.log('Saving to file', fileName)
   fs.writeFileSync(fileName, report)
   return fileName
 }
