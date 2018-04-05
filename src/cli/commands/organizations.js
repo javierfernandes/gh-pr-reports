@@ -2,6 +2,7 @@ import fs from 'fs'
 import moment from 'moment'
 import state from './state'
 import reporter from '../../reporter'
+import toPDF from '../../htmlToPdf'
 
 export default (vorpal, client) => {
   vorpal
@@ -17,6 +18,9 @@ export default (vorpal, client) => {
 
       const report = reporter(state)
       const fileName = saveToFile(state, report)
+
+      await toPDF(fileName)
+    
       cli.log(`Generated file ${fileName}`)
 
       // console.log('State', state)
