@@ -33,6 +33,12 @@ export default function generate(state) {
 
           margin-top: 1rem;
           margin-bottom: 1rem;
+
+          /* centered */
+          display: block;
+          margin-left: auto;
+          margin-right: auto;
+          width: 50%;
         }
         pre {
           padding-top: 1em;
@@ -42,13 +48,17 @@ export default function generate(state) {
           background-color: #212529;
           border-radius: 4px;
         }
+
+        ul.index li a {
+          margin-left: 0.6rem;
+        }
       </style>
     </head>
     <body>
       <h1>${state.repository} ${state.tag.name}</h1>
 
       <h2>Index</h2>
-      <ul>
+      <ul class="index">
       ${state.prs.map(pr => {
         return `<li>[${pr.number}]&nbsp;<a href="#${pr.number}">${pr.title}</a></li>`
       }).join('\n')} 
