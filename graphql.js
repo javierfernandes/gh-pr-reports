@@ -5,7 +5,7 @@ import fetch from 'isomorphic-fetch'
 
 export const createClient = token => {
   const networkInterface = createNetworkInterface({
-    uri: 'https://api.github.com/graphql'
+    uri: 'https://api.github.com/graphql',
   })
 
   networkInterface.use([ {
@@ -18,7 +18,9 @@ export const createClient = token => {
     }
   }])
 
-  return new Api(new ApolloClient({ networkInterface }))
+  return new Api(new ApolloClient({
+    networkInterface,
+  }))
 }
 
 class Api {
@@ -38,25 +40,39 @@ class Api {
     return this.queryPage(query, extractor, undefined, variables, [])
   }
   async queryPage(query, extractor, after, variables, elements) {
-    const result = await this.client.query({
-      query,
-      variables: {
-        ...variables,
-        ...after && { after }
-      }
-    })
+    try {
+      const result = await this.client.query({
+        query,
+        variables: {
+          ...variables,
+          ...after && { after }
+        }
+      })
 
-    const search = extractor(result.data)
-    elements = elements.concat(search.nodes)
-    return search.pageInfo.hasNextPage ?
-      this.queryPage(query, extractor, search.pageInfo.endCursor, variables, elements)
-      : elements
+      if (result.stale && result.data === null) {
+        return elements
+      }
+  
+      const search = extractor(result.data)
+      
+      elements = elements.concat(search.nodes)
+
+      if (!search.pageInfo.hasNextPage) {
+        return elements
+      }
+
+      return this.queryPage(query, extractor, search.pageInfo.endCursor, variables, elements)
+    } catch (error) {
+      console.error('Error while querying', error, 'query is', query)
+      throw error
+    }
   }
   // simple query
   async query(queryFileName, extractor, variables) {
     const result = await this.client.query({
       query: this.gql(queryFileName),
-      variables
+      variables,
+      fetchPolicy: 'no-cache'
     })
     return extractor(result.data)
   }

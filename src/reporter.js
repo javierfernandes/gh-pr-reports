@@ -8,16 +8,31 @@ export default function generate(state) {
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+      <link href="https://fonts.googleapis.com/css?family=Muli&display=swap" rel="stylesheet">
+
       <!-- Bootstrap CSS -->
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
       <style>
+        * { font-family: 'Muli', sans-serif; }
+
+        body {
+          padding-top: 2rem;
+          width: 80%;
+          margin: auto;
+        }
+
         h1 { padding-bottom: 1em; border-bottom: 1px solid rgb(220, 220, 220); }
         h3 { padding-top: 0.5em; padding-bottom: 0.2em; }
+        hr { margin-top: 2rem; }
         img { 
           max-width: 65%!important;
           border: 1px solid rgba(1,1,1,0.2);
           border-radius: 4px;
           box-shadow: 2px 2px 2px #d2d2d3;
+
+          margin-top: 1rem;
+          margin-bottom: 1rem;
         }
         pre {
           padding-top: 1em;
@@ -29,7 +44,7 @@ export default function generate(state) {
         }
       </style>
     </head>
-    <body style="width: 80%; margin: auto;">
+    <body>
       <h1>${state.repository} ${state.tag.name}</h1>
 
       <h2>Index</h2>

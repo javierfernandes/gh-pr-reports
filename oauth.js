@@ -3,7 +3,7 @@ import ghauth from 'github-oauth'
 
 const config = fs.readFileSync(`${__dirname}/config.json`)
 
-const { PORT, CLIENT_ID, CLIENT_SECRET } = this.config
+const { PORT, CLIENT_ID, CLIENT_SECRET } = config
 
 const scopes = [
   'user',

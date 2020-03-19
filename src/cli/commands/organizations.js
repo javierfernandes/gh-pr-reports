@@ -88,7 +88,6 @@ const fetchPRs = async (cli, client, state) => {
     owner: state.organization,
     name: state.repository
   }
-  console.log('Fetching PRS', variables)
   const prs = await client.queryAll('prs.gql', data => data.repository.pullRequests, variables)
   console.log(`Got ${prs.length} PRs`)
   state.prs = prs
@@ -100,7 +99,6 @@ const fetchPRs = async (cli, client, state) => {
       pr.mergedAt.isSameOrBefore(state.tag.target.committedDate)
       && (!state.previousTag || pr.mergedAt.isAfter(state.previousTag.target.committedDate, 'minute'))
     )
-  console.log(`After filtering we got ${state.prs.length} PRs`)
 }
 
 const fetchPRBodies = async (cli, client, state) => {
@@ -110,7 +108,6 @@ const fetchPRBodies = async (cli, client, state) => {
       name: state.repository,
       number: pr.number
     }
-    console.log(`Querying PR #${pr.number}`)
     return client.query('pr.gql', data => data.repository.pullRequest, variables)
   }))
 }
@@ -140,9 +137,12 @@ const tagToMoment = t => ({
 
 const prompt = async ({ message, query, extractor, variables = {}, toOptions }, cli, client) => {
   const objects = await client.queryAll(query, extractor, variables)
+
+  const choices = objects.map(toOptions)
+
   const result = await cli.prompt({
     type: 'list',
-    choices: objects.map(toOptions),
+    choices: choices,
     name: 'value',
     default: false,
     message,
