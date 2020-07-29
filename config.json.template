@@ -1,8 +1,5 @@
 {
   "TOKEN": "YOUR_TOKEN_HERE",
-  "OWNER": "USER_OR_ORG",
-  "REPO": "REPO_NAME",
-
 
   "PORT": 3000,
   "CLIENT_ID": "YOUR_APP_ID",
