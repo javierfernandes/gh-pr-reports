@@ -20,7 +20,7 @@ const scopes = [
 const githubOAuth = ghauth({
   githubClient: CLIENT_ID,
   githubSecret: CLIENT_SECRET,
-  baseURL: 'http://localhost:3000',
+  baseURL: `http://localhost:${PORT}`,
   loginURI: '/login',
   callbackURI: '/callback',
   scope: scopes.join(' ')

@@ -4,6 +4,8 @@ import state from './state'
 import reporter from '../../reporter'
 import toPDF from '../../htmlToPdf'
 
+const IGNORE_PR_LABEL = 'no-release-notes'
+
 export default (vorpal, client) => {
   vorpal
     .command('organizations')
@@ -98,18 +100,18 @@ const fetchPRs = async (cli, client, state) => {
     .filter(pr => 
       pr.mergedAt.isSameOrBefore(state.tag.target.committedDate)
       && (!state.previousTag || pr.mergedAt.isAfter(state.previousTag.target.committedDate, 'minute'))
+      && (!pr.labels.nodes.some(label => label.name === IGNORE_PR_LABEL))
     )
 }
 
 const fetchPRBodies = async (cli, client, state) => {
-  state.prs = await Promise.all(state.prs.map(pr => {
-    const variables = {
+  state.prs = await Promise.all(state.prs.map(pr =>
+    client.query('pr.gql', data => data.repository.pullRequest, {
       owner: state.organization,
       name: state.repository,
       number: pr.number
-    }
-    return client.query('pr.gql', data => data.repository.pullRequest, variables)
-  }))
+    })
+  ))
 }
 
 const saveToFile = (state, report) => {

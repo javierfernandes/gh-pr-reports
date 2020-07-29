@@ -9,6 +9,12 @@ query prs($owner: String!, $name: String!, $after: String) {
       nodes {
         number
         mergedAt
+
+        labels(first: 20) {
+          nodes {
+            name
+          }
+        }
       }
     }
   }
