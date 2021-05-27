@@ -1,5 +1,8 @@
 # gh-pr-reports
 A script to generate a changelog report based on tags and pull requests.
+Provides an interactive CLI to pick a tag in a org-based repo.
+Generates a release notes document in pdf & html which includes all PRs merged into master/main since the previous tag and the selected tag (using timestamps).
+It includes all the PR bodies.
 
 # Setup
 
