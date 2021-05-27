@@ -1,5 +1,8 @@
 # gh-pr-reports
 A script to generate a changelog report based on tags and pull requests.
+Provides an interactive CLI to pick a tag in a org-based repo.
+Generates a release notes document in pdf & html which includes all PRs merged into master/main since the previous tag and the selected tag (using timestamps).
+It includes all the PR bodies.
 
 # Setup
 
@@ -44,8 +47,6 @@ Edit again `config.json` to specify the token and repository
 ```json
 {
   "TOKEN": "<< ... >>",
-  "OWNER": "organization",
-  "REPO": "repoName",
 
   "PORT": 3000,
   "CLIENT_ID": "<< ... >>",
@@ -62,6 +63,17 @@ Once we have the token we can now generate a report
 ```bash
 yarn start
 ```
+
+It will show you a list of organizations to pick one, then a list of repositories, and finally a tag.
+Releases are created for a specific tag.
+It will create a document in both pdf and html format that contains an index of all PR's merged into master
+between the previous tag's date and the selected one.
+
+Here a video showing how to use it
+![gh-report-generator](https://user-images.githubusercontent.com/4428120/119832043-35ce7880-bed4-11eb-81d7-3ba4d8ccb209.gif)
+
+
+
 
 
 
