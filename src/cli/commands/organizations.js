@@ -4,7 +4,7 @@ import state from './state'
 import reporter from '../../reporter'
 import toPDF from '../../htmlToPdf'
 
-const IGNORE_PR_LABEL = 'no-release-notes'
+const IGNORED_LABELS = ['no-release-notes', 'dependencies']
 
 export default (vorpal, client) => {
   vorpal
@@ -85,6 +85,8 @@ const previousTagTo = (tag, tags) => {
   return otherTags.length > 0 ? otherTags[otherTags.length - 1] : undefined
 }
 
+const mustIgnoreLabel = label => IGNORED_LABELS.includes(label)
+
 const fetchPRs = async (cli, client, state) => {
   const variables = {
     owner: state.organization,
@@ -100,7 +102,7 @@ const fetchPRs = async (cli, client, state) => {
     .filter(pr => 
       pr.mergedAt.isSameOrBefore(state.tag.target.committedDate)
       && (!state.previousTag || pr.mergedAt.isAfter(state.previousTag.target.committedDate, 'minute'))
-      && (!pr.labels.nodes.some(label => label.name === IGNORE_PR_LABEL))
+      && (!pr.labels.nodes.some(label => mustIgnoreLabel(label.name)))
     )
 }
 
